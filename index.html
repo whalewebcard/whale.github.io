@@ -145,10 +145,9 @@
                     <input type="text" name="qr_music" placeholder="ชื่อเพลง หรือพิมพ์ว่า 'ไม่ทำ'" class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all">
                 </div>
 
-                <!-- ส่วนอื่นๆ (ไม่บังคับ/ตัวเลือก) -->
                 <hr class="border-sky-50">
 
-                <!-- อัปโหลดรูปภาพ (แก้ไขให้แสดงตามลำดับและมีปุ่มลบ) -->
+                <!-- อัปโหลดรูปภาพ -->
                 <div>
                     <label class="block text-sky-700 font-medium mb-2">📸 อัปโหลดรูปภาพ (Upload Images) - เลือกได้สูงสุด 5 รูป</label>
                     <div class="grid grid-cols-5 gap-2 mb-3" id="imagePreviewContainer">
@@ -225,28 +224,17 @@
             `;
         }
 
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwCxFqdYohxUm8tFbQMuRqdbsdso2ht8G-VZ9qG0HHIGNlbOEMl6_0Q8rmkbddyJjOHUg/exec';
-        let uploadedImagesBase64 = []; // เก็บ Base64 ของรูปภาพที่อัปโหลด
-        const MAX_TOTAL_SIZE = 10 * 1024 * 1024; // 10MB
+        // --- SCRIPT_URL ที่อัปเดตใหม่ล่าสุดของคุณ ---
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLKLtb2hjelmuGb6zisHilmLvCl_0MQjOlrJeRPLYoYs0FsX4Q9iWqewYRZIqlHU6E8Q/exec';
+        
+        let uploadedImagesBase64 = []; 
         const MAX_FILES = 5;
 
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const files = Array.from(e.target.files);
-            
-            // ตรวจสอบว่ารวมกับที่มีอยู่แล้วเกิน 5 ไหม
             if (uploadedImagesBase64.length + files.length > MAX_FILES) {
-                alert(`คุณสามารถอัปโหลดได้สูงสุด ${MAX_FILES} รูปเท่านั้น (ขณะนี้มีอยู่ ${uploadedImagesBase64.length} รูป)`);
+                alert(`คุณสามารถอัปโหลดได้สูงสุด ${MAX_FILES} รูปเท่านั้น`);
                 this.value = "";
-                return;
-            }
-
-            let currentTotalSize = 0;
-            // คำนวณขนาด (แบบประมาณการณ์จาก base64 หรือจะใช้ File Object ก็ได้)
-            // ในที่นี้เราจะตรวจแค่ไฟล์ใหม่ที่กำลังจะเพิ่ม
-            files.forEach(file => currentTotalSize += file.size);
-            if (currentTotalSize > MAX_TOTAL_SIZE) {
-                alert("ขนาดไฟล์ใหม่ที่เลือกเกิน 10MB กรุณาลดขนาดรูปภาพลง");
-                this.value = ""; 
                 return;
             }
 
@@ -260,20 +248,16 @@
                 };
                 reader.readAsDataURL(file);
             });
-            this.value = ""; // เคลียร์ input เพื่อให้เลือกไฟล์เดิมซ้ำได้ถ้าลบไปแล้ว
+            this.value = ""; 
         });
 
-        // ฟังก์ชันวาดตัวอย่างรูปภาพใหม่ทั้งหมดตามลำดับใน Array
         function renderPreviews() {
-            // เคลียร์ทุกล็อคก่อน
             for(let i=0; i<5; i++) {
                 const slot = document.getElementById(`slot-${i}`);
                 slot.innerHTML = `<span class="text-xs text-sky-200">${i+1}</span>`;
                 slot.classList.remove('border-sky-300', 'border-solid');
                 slot.classList.add('border-dashed');
             }
-
-            // ใส่รูปตามลำดับที่มีใน uploadedImagesBase64
             uploadedImagesBase64.forEach((base64, index) => {
                 const slot = document.getElementById(`slot-${index}`);
                 slot.classList.remove('border-dashed');
@@ -285,7 +269,6 @@
             });
         }
 
-        // ฟังก์ชันลบรูปตาม index
         function removeImage(index) {
             uploadedImagesBase64.splice(index, 1);
             renderPreviews();
@@ -295,10 +278,8 @@
             const qaDiv = document.getElementById('qa_inputs');
             if (show) {
                 qaDiv.classList.remove('hidden');
-                qaDiv.querySelectorAll('input').forEach(input => input.required = true);
             } else {
                 qaDiv.classList.add('hidden');
-                qaDiv.querySelectorAll('input').forEach(input => input.required = false);
             }
         }
 
@@ -306,23 +287,30 @@
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
+            
             btn.disabled = true;
-            btnText.innerHTML = '<span class="loader"></span> กำลังส่งข้อมูล...';
+            btnText.innerHTML = '<span class="loader"></span> กำลังส่งข้อมูลไปยัง Google Sheets...';
 
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
-            data.images = uploadedImagesBase64;
+            data.images = uploadedImagesBase64; 
 
             try {
+                // ส่งข้อมูลไปยัง Apps Script URL
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
-                    mode: 'no-cors',
+                    mode: 'no-cors', 
                     cache: 'no-cache',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     body: JSON.stringify(data),
                 });
+
                 showSuccess();
             } catch (error) {
-                alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+                console.error('Error:', error);
+                alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่หรือตรวจสอบการตั้งค่า Apps Script');
                 resetBtn();
             }
         });
