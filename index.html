@@ -103,10 +103,10 @@
         <div class="form-card rounded-3xl p-8 shadow-xl">
             <form id="orderForm" class="space-y-6">
                 
-                <!-- 1. เว็บการ์ดแนวไหน (บังคับ) -->
+                <!-- 1. เว็บการ์ดแนวไหน -->
                 <div>
                     <label class="block text-sky-700 font-bold mb-2 required-label">🎈 เว็บการ์ดแนวไหน? (Card Category)</label>
-                    <input type="text" name="card_type" placeholder="เช่น วันครบรอบ, วันเกิด (e.g. Anniversary)" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                    <input type="text" name="card_type" placeholder="เช่น วันครบรอบ, วันเกิด" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
                 </div>
 
                 <!-- 2 & 3. ชื่อเล่น & ชื่อคนพิเศษ -->
@@ -121,21 +121,21 @@
                     </div>
                 </div>
 
-                <!-- 4. โทนสี (บังคับ) และ รหัสผ่าน (ตัวเลือก) -->
+                <!-- 4. โทนสี และ รหัสผ่าน -->
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
                         <label class="block text-sky-700 font-bold mb-2 required-label">🎨 โทนสีที่ใช้ (Color Tone)</label>
-                        <input type="text" name="color_tone" placeholder="เช่น #da3371 , #ff86b0 , #f18daf" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                        <input type="text" name="color_tone" placeholder="เช่น เช่น #da3371 , #ff86b0 , #f18daf" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
                     </div>
                     <div class="flex-1">
                         <label class="block text-sky-700 font-medium mb-2">🔒 รหัสผ่านปลดล็อก (Passcode)</label>
-                        <input type="text" name="passcode" maxlength="4" pattern="\d{4}" placeholder="ตัวเลข 4 หลัก (ถ้ามี)" class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all">
+                        <input type="text" name="passcode" maxlength="4" pattern="\d{4}" placeholder="ตัวเลข 4 หลัก" class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all">
                     </div>
                 </div>
 
-                <!-- 5. ลิงก์เพลงประกอบ (บังคับ) -->
+                <!-- 5. ลิงก์เพลงประกอบ -->
                 <div>
-                    <label class="block text-sky-700 font-bold mb-2 required-label">🎵 ลิงก์เพลงประกอบ (Background Music URL)</label>
+                    <label class="block text-sky-700 font-bold mb-2 required-label">🎵 ลิงก์เพลงประกอบ (Music URL)</label>
                     <input type="url" name="music_url" placeholder="เช่น https://www.youtube.com/watch?v=P5sHZRicEXg&list=RDP5sHZRicEXg&start_radio=1" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
                 </div>
 
@@ -149,7 +149,7 @@
 
                 <!-- อัปโหลดรูปภาพ -->
                 <div>
-                    <label class="block text-sky-700 font-medium mb-2">📸 อัปโหลดรูปภาพ (Upload Images) - เลือกได้สูงสุด 5 รูป</label>
+                    <label class="block text-sky-700 font-medium mb-2">📸 อัปโหลดรูปภาพ (Upload Images) - สูงสุด 5 รูป</label>
                     <div class="grid grid-cols-5 gap-2 mb-3" id="imagePreviewContainer">
                         <div class="image-preview-slot" id="slot-0"><span class="text-xs text-sky-200">1</span></div>
                         <div class="image-preview-slot" id="slot-1"><span class="text-xs text-sky-200">2</span></div>
@@ -158,13 +158,12 @@
                         <div class="image-preview-slot" id="slot-4"><span class="text-xs text-sky-200">5</span></div>
                     </div>
                     <input type="file" id="imageInput" accept="image/*" multiple class="block w-full text-sm text-sky-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
-                    <p id="fileLimitText" class="text-[10px] text-red-500 mt-2 font-medium">* เลือกได้ไม่เกิน 5 รูป และขนาดรวมต้องไม่เกิน 10MB</p>
                 </div>
 
                 <!-- ข้อความ -->
                 <div>
                     <label class="block text-sky-700 font-medium mb-2">📝 ข้อความ/คำอวยพร (Wishes/Message)</label>
-                    <textarea name="message" rows="3" placeholder="พิมพ์ข้อความของคุณตรงนี้..." class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all resize-none"></textarea>
+                    <textarea name="message" rows="3" placeholder="พิมพ์ข้อความของคุณ..." class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all resize-none"></textarea>
                 </div>
 
                 <!-- Q&A Section -->
@@ -173,67 +172,63 @@
                     <div class="flex justify-center gap-6 mb-6">
                         <label class="flex items-center cursor-pointer">
                             <input type="radio" name="qa_choice" value="no" checked class="hidden peer" onclick="toggleQA(false)">
-                            <div class="px-6 py-2 rounded-full border-2 border-sky-200 text-sky-400 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 transition-all">ไม่ทำ (No)</div>
+                            <div class="px-6 py-2 rounded-full border-2 border-sky-200 text-sky-400 peer-checked:bg-sky-500 peer-checked:text-white peer-checked:border-sky-500 transition-all">ไม่ทำ</div>
                         </label>
                         <label class="flex items-center cursor-pointer">
                             <input type="radio" name="qa_choice" value="yes" class="hidden peer" onclick="toggleQA(true)">
-                            <div class="px-6 py-2 rounded-full border-2 border-sky-200 text-sky-400 peer-checked:bg-pink-500 peer-checked:text-white peer-checked:border-pink-500 transition-all">ทำ (Yes)</div>
+                            <div class="px-6 py-2 rounded-full border-2 border-sky-200 text-sky-400 peer-checked:bg-pink-500 peer-checked:text-white peer-checked:border-pink-500 transition-all">ทำ</div>
                         </label>
                     </div>
 
-                    <div id="qa_inputs" class="hidden space-y-8 animate-fade-in">
-                        <div id="questions_container" class="space-y-6">
-                            <!-- JS Generated -->
+                    <div id="qa_inputs" class="hidden space-y-4">
+                        <div id="questions_container" class="space-y-4">
+                            <!-- JS Generated Questions -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Submit Button -->
                 <button type="submit" id="submitBtn" class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-4 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] active:scale-95 flex justify-center items-center">
-                    <span id="btnText">ส่งข้อมูลการสั่งทำ ✨ (Send Order)</span>
+                    <span id="btnText">ส่งข้อมูลการสั่งทำ ✨</span>
                 </button>
             </form>
         </div>
 
         <!-- Success Modal -->
         <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center p-4 z-50">
-            <div class="bg-white rounded-3xl p-8 max-sm w-full text-center shadow-2xl">
+            <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl">
                 <div class="text-5xl mb-4">🐳</div>
-                <h3 class="text-2xl font-bold text-sky-600 mb-2">บันทึกข้อมูลเรียบร้อย! (Success!)</h3>
-                <p class="text-gray-500 mb-6">ข้อมูลถูกส่งเข้าระบบเรียบร้อยแล้ว</p>
-                <button onclick="closeModal()" class="w-full bg-sky-500 text-white py-3 rounded-xl font-bold">ตกลง (OK)</button>
+                <h3 class="text-2xl font-bold text-sky-600 mb-2">ส่งข้อมูลสำเร็จ!</h3>
+                <p class="text-gray-500 mb-6">รับออเดอร์เรียบร้อยแล้วครับ</p>
+                <button onclick="closeModal()" class="w-full bg-sky-500 text-white py-3 rounded-xl font-bold">ตกลง</button>
             </div>
         </div>
     </div>
 
     <script>
+        // สร้างช่องกรอกคำถาม Q&A 5 ข้อ
         const container = document.getElementById('questions_container');
         for (let i = 1; i <= 5; i++) {
             container.innerHTML += `
-                <div class="qa-box p-5 rounded-2xl space-y-3 shadow-sm">
-                    <label class="block text-pink-600 font-semibold text-sm">คำถามข้อที่ ${i}</label>
-                    <input type="text" name="q${i}_text" placeholder="คำถาม..." class="w-full p-2.5 rounded-lg border border-pink-200 text-sm focus:outline-pink-400">
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="text" name="q${i}_c1" placeholder="ตัวเลือก 1" class="p-2 rounded-lg border border-pink-100 text-xs">
-                        <input type="text" name="q${i}_c2" placeholder="ตัวเลือก 2" class="p-2 rounded-lg border border-pink-100 text-xs">
-                        <input type="text" name="q${i}_c3" placeholder="ตัวเลือก 3" class="p-2 rounded-lg border border-pink-100 text-xs">
-                        <input type="text" name="q${i}_c4" placeholder="ตัวเลือก 4" class="p-2 rounded-lg border border-pink-100 text-xs">
-                    </div>
-                    <input type="text" name="q${i}_correct" placeholder="เฉลยคำตอบ..." class="w-full p-2 rounded-lg border border-green-200 bg-green-50 text-xs focus:outline-green-400">
+                <div class="qa-box p-4 rounded-2xl space-y-2">
+                    <label class="block text-pink-600 font-semibold text-xs">คำถามข้อที่ ${i}</label>
+                    <input type="text" name="q${i}_text" placeholder="พิมพ์คำถาม..." class="w-full p-2 rounded-lg border border-pink-100 text-sm focus:outline-pink-300">
+                    <input type="text" name="q${i}_correct" placeholder="เฉลยคำตอบ..." class="w-full p-2 rounded-lg border border-green-100 bg-green-50 text-sm focus:outline-green-300">
                 </div>
             `;
         }
 
-        // --- SCRIPT_URL ที่อัปเดตใหม่ล่าสุดของคุณ ---
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLKLtb2hjelmuGb6zisHilmLvCl_0MQjOlrJeRPLYoYs0FsX4Q9iWqewYRZIqlHU6E8Q/exec';
+        // URL ล่าสุดที่คุณให้มา
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw_E9hsmUuwxm2XY6ZNpafLiTpbdc77wUoKWwhdYLHj-xXYEiKeo_-7mHO9mkGOTQw-Xg/exec';
         
         let uploadedImagesBase64 = []; 
         const MAX_FILES = 5;
 
+        // จัดการการเลือกรูปภาพ
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const files = Array.from(e.target.files);
             if (uploadedImagesBase64.length + files.length > MAX_FILES) {
-                alert(`คุณสามารถอัปโหลดได้สูงสุด ${MAX_FILES} รูปเท่านั้น`);
+                alert(`อัปโหลดได้ไม่เกิน ${MAX_FILES} รูปครับ`);
                 this.value = "";
                 return;
             }
@@ -275,48 +270,51 @@
         }
 
         function toggleQA(show) {
-            const qaDiv = document.getElementById('qa_inputs');
-            if (show) {
-                qaDiv.classList.remove('hidden');
-            } else {
-                qaDiv.classList.add('hidden');
-            }
+            document.getElementById('qa_inputs').classList.toggle('hidden', !show);
         }
 
+        // จัดการการส่งฟอร์ม
         document.getElementById('orderForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             
             btn.disabled = true;
-            btnText.innerHTML = '<span class="loader"></span> กำลังส่งข้อมูลไปยัง Google Sheets...';
+            btnText.innerHTML = '<span class="loader"></span> กำลังส่งข้อมูล...';
 
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
-            data.images = uploadedImagesBase64; 
+            
+            // ส่งรูปภาพเป็น JSON string
+            data.images = JSON.stringify(uploadedImagesBase64); 
 
             try {
-                // ส่งข้อมูลไปยัง Apps Script URL
+                // ใช้ URLSearchParams เพื่อส่งข้อมูลแบบ x-www-form-urlencoded
+                const params = new URLSearchParams();
+                for (const key in data) {
+                    params.append(key, data[key]);
+                }
+
                 await fetch(SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors', 
-                    cache: 'no-cache',
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: JSON.stringify(data),
+                    body: params.toString(),
                 });
 
                 showSuccess();
             } catch (error) {
                 console.error('Error:', error);
-                alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่หรือตรวจสอบการตั้งค่า Apps Script');
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่ครับ');
                 resetBtn();
             }
         });
 
         function showSuccess() {
-            document.getElementById('successModal').style.display = 'flex';
+            document.getElementById('successModal').classList.remove('hidden');
+            document.getElementById('successModal').classList.add('flex');
             resetBtn();
         }
 
@@ -324,11 +322,12 @@
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             btn.disabled = false;
-            btnText.innerHTML = 'ส่งข้อมูลการสั่งทำ ✨ (Send Order)';
+            btnText.innerHTML = 'ส่งข้อมูลการสั่งทำ ✨';
         }
 
         function closeModal() {
-            document.getElementById('successModal').style.display = 'none';
+            document.getElementById('successModal').classList.add('hidden');
+            document.getElementById('successModal').classList.remove('flex');
             document.getElementById('orderForm').reset();
             uploadedImagesBase64 = [];
             renderPreviews();
@@ -337,4 +336,3 @@
     </script>
 </body>
 </html>
-
