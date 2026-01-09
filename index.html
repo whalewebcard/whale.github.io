@@ -94,6 +94,12 @@
             0% { transform: scale(0.8); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
         }
+        .warning-modal {
+            border-top: 8px solid #fbbf24;
+        }
+        .confirm-modal {
+            border-top: 8px solid #0ea5e9;
+        }
     </style>
 </head>
 <body class="min-h-screen py-10 px-4">
@@ -113,7 +119,7 @@
                 <!-- 1. เว็บการ์ดแนวไหน -->
                 <div>
                     <label class="block text-sky-700 font-bold mb-2 required-label">🎈 เว็บการ์ดแนวไหน? (Card Category)</label>
-                    <input type="text" name="card_type" placeholder="เช่น วันเกิด , วันครบรอบ , วันวาเลนไทน์" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                    <input type="text" name="card_type" id="card_type" placeholder="เช่น วันเกิด , วันครบรอบ , วันวาเลนไทน์" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
                 </div>
 
                 <!-- วันที่สำคัญ -->
@@ -127,11 +133,11 @@
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
                         <label class="block text-sky-700 font-bold mb-2 required-label">👤 ชื่อเล่นของคุณ (Your Nickname)</label>
-                        <input type="text" name="customer_name" placeholder="ชื่อเล่นของคุณ" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                        <input type="text" name="customer_name" id="customer_name" placeholder="ชื่อเล่นของคุณ" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
                     </div>
                     <div class="flex-1">
                         <label class="block text-sky-700 font-bold mb-2 required-label">💖 ชื่อคนพิเศษ (Receiver Name)</label>
-                        <input type="text" name="receiver_name" placeholder="ชื่อคนที่จะได้รับ" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                        <input type="text" name="receiver_name" id="receiver_name" placeholder="ชื่อคนที่จะได้รับ" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
                     </div>
                 </div>
 
@@ -139,18 +145,19 @@
                 <div class="flex flex-col md:flex-row gap-4">
                     <div class="flex-1">
                         <label class="block text-sky-700 font-bold mb-2 required-label">🎨 โทนสีที่ใช้ (Color Tone)</label>
-                        <input type="text" name="color_tone" placeholder="เช่น #da3371 , #ff86b0 , #f18daf" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                        <input type="text" name="color_tone" id="color_tone" placeholder="เช่น #da3371 , #ff86b0 , #f18daf" class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
+                        <p class="text-[10px] text-red-500 mt-1 ml-1 leading-tight">* สามารถระบุโค้ดสีได้มากกว่า 1 สี เพื่อให้งานออกมาตรงใจที่สุดครับ</p>
                     </div>
                     <div class="flex-1">
                         <label class="block text-sky-700 font-medium mb-2">🔒 รหัสผ่านปลดล็อก (Passcode)</label>
-                        <input type="text" name="passcode" maxlength="4" pattern="\d{4}" placeholder="ตัวเลข 4 หลัก" class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all">
+                        <input type="text" name="passcode" id="passcode" maxlength="4" placeholder="ตัวเลข 4 หลัก" class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all">
                     </div>
                 </div>
 
                 <!-- ลิงก์เพลงประกอบ -->
                 <div>
                     <label class="block text-sky-700 font-bold mb-2 required-label">🎵 ลิงก์เพลงประกอบ (Music URL)</label>
-                    <input type="url" name="music_url" placeholder="เช่น https://www.youtube.com/watch?v=..." class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all" required>
+                    <input type="url" name="music_url" id="music_url" placeholder="เช่น https://www.youtube.com/watch?v=..." class="w-full p-3 rounded-xl border-2 border-sky-100 input-focus transition-all">
                 </div>
 
                 <!-- ชื่อเพลงสำหรับทำ QR Code -->
@@ -179,7 +186,7 @@
                 <!-- ข้อความ -->
                 <div>
                     <label class="block text-sky-700 font-medium mb-2">📝 ข้อความ/คำอวยพร (Wishes/Message)</label>
-                    <textarea name="message" rows="3" placeholder="พิมพ์ข้อความของคุณ..." class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all resize-none"></textarea>
+                    <textarea name="message" id="message" rows="3" placeholder="พิมพ์ข้อความของคุณ..." class="w-full p-3 rounded-xl border border-sky-100 input-focus transition-all resize-none"></textarea>
                 </div>
 
                 <!-- Q&A Section -->
@@ -207,11 +214,16 @@
                 <div class="border-t border-sky-50 pt-6 space-y-4">
                     <label class="flex items-start gap-3 cursor-pointer group">
                         <div class="relative flex items-center h-5">
-                            <input type="checkbox" id="consent_checkbox" class="w-5 h-5 rounded border-2 border-sky-200 text-sky-500 focus:ring-sky-500 cursor-pointer" required>
+                            <input type="checkbox" id="consent_checkbox" class="w-5 h-5 rounded border-2 border-sky-200 text-sky-500 focus:ring-sky-500 cursor-pointer">
                         </div>
                         <div class="text-sm text-sky-800 leading-relaxed">
-                            <p class="font-medium mb-1">ฉันยินยอมให้ร้าน WHALE เก็บและใช้ข้อมูลส่วนบุคคล เพื่อวัตถุประสงค์ในการสร้างเว็บการ์ดเท่านั้น</p>
-                            <p class="text-xs text-red-500 font-semibold italic mt-2 underline">ห้ามนำเทมเพลตไปใช้ไม่ว่าในกรณีใดก็ตาม หากพบเห็นจะดำเนินคดีตามกฎหมาย</p>
+                            <p class="font-bold mb-1">ข้อตกลงและความยินยอม (Consent Agreement)</p>
+                            <p class="text-gray-600">
+                                ข้าพเจ้ายินยอมให้ร้าน <span class="font-bold text-sky-600">WHALE</span> จัดเก็บและใช้ข้อมูลส่วนบุคคล (เช่น ชื่อ และข้อมูลพื้นฐานอื่นๆ) เพื่อวัตถุประสงค์ในการสร้างสรรค์เว็บการ์ดตามคำขอเพียงอย่างเดียวเท่านั้น โดยทางร้านขอรับรองว่าจะไม่มีการนำข้อมูลไปเผยแพร่หรือใช้งานในส่วนอื่นก่อนได้รับอนุญาตจากท่าน
+                            </p>
+                            <p class="text-xs text-red-500 font-semibold italic mt-2 underline">
+                                * ห้ามนำเทมเพลตไปแจกจ่ายหรือใช้เชิงพาณิชย์โดยไม่ได้รับอนุญาต หากพบเห็นจะดำเนินคดีตามกฎหมายอย่างถึงที่สุด
+                            </p>
                         </div>
                     </label>
                 </div>
@@ -223,6 +235,29 @@
             </form>
         </div>
 
+        <!-- Confirm Modal -->
+        <div id="confirmModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-[80]">
+            <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl animate-pop confirm-modal">
+                <div class="text-4xl mb-4">🐋</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">ตรวจสอบความเรียบร้อย</h3>
+                <p class="text-gray-500 text-sm mb-6 leading-relaxed">ข้อมูลของคุณถูกต้องและครบถ้วนแล้วใช่หรือไม่? หากยืนยันแล้วน้องวาฬจะเริ่มนำส่งข้อมูลทันทีครับ</p>
+                <div class="flex gap-3">
+                    <button onclick="closeConfirm()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-600 py-3 rounded-xl font-bold transition-colors">ย้อนกลับ</button>
+                    <button id="finalConfirmBtn" class="flex-1 bg-sky-500 hover:bg-sky-600 text-white py-3 rounded-xl font-bold transition-colors shadow-md shadow-sky-200">ยืนยันการส่ง</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Warning Modal -->
+        <div id="warningModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-[70]">
+            <div class="bg-white rounded-3xl p-8 max-w-sm w-full text-center shadow-2xl animate-pop warning-modal">
+                <div class="text-4xl mb-4">⚠️</div>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">ข้อมูลยังไม่ครบถ้วน</h3>
+                <p id="warningMessage" class="text-gray-500 text-sm mb-6 leading-relaxed"></p>
+                <button onclick="closeWarning()" class="w-full bg-amber-400 hover:bg-amber-500 text-white py-3 rounded-xl font-bold transition-colors">รับทราบ</button>
+            </div>
+        </div>
+
         <!-- Uploading Modal -->
         <div id="uploadingModal" class="fixed inset-0 bg-sky-900/40 backdrop-blur-sm hidden items-center justify-center p-4 z-[60]">
             <div class="bg-white rounded-3xl p-10 max-w-sm w-full text-center shadow-2xl animate-pop">
@@ -230,7 +265,7 @@
                     <img src="https://i.ibb.co/k268SxR2/WHALE3.png" alt="Whale Loading" class="w-24 h-24 mx-auto object-contain">
                 </div>
                 <h3 class="text-2xl font-bold text-sky-600 mb-2">กำลังเดินทางไปหาเซิร์ฟเวอร์...</h3>
-                <p class="text-gray-500 text-sm mb-4">น้องวาฬกำลังส่งข้อมูลและอัปโหลดรูปภาพอย่างตั้งใจ โปรดรอสักครู่ขะรับ</p>
+                <p class="text-gray-500 text-sm mb-4">น้องวาฬกำลังส่งข้อมูลและอัปโหลดรูปภาพ อย่างตั้งใจ โปรดรอสักครู่ครับ</p>
                 <div class="bg-sky-50 rounded-full px-4 py-2 inline-flex items-center gap-2 mb-2">
                     <span class="loader border-sky-500 border-t-white"></span>
                     <span class="text-sky-600 font-bold text-xs">คาดว่าใช้เวลาประมาณ 3 - 5 นาที</span>
@@ -255,19 +290,18 @@
             container.innerHTML += `
                 <div class="qa-box p-5 rounded-2xl space-y-3 shadow-sm">
                     <label class="block text-pink-600 font-semibold text-sm">คำถามข้อที่ ${i}</label>
-                    <input type="text" name="q${i}_text" placeholder="พิมพ์คำถามที่นี่..." class="w-full p-2.5 rounded-lg border border-pink-200 text-sm focus:outline-pink-400">
+                    <input type="text" name="q${i}_text" id="q${i}_text" placeholder="พิมพ์คำถามที่นี่..." class="w-full p-2.5 rounded-lg border border-pink-200 text-sm focus:outline-pink-400">
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="text" name="q${i}_c1" placeholder="ตัวเลือก 1 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
-                        <input type="text" name="q${i}_c2" placeholder="ตัวเลือก 2 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
-                        <input type="text" name="q${i}_c3" placeholder="ตัวเลือก 3 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
-                        <input type="text" name="q${i}_c4" placeholder="ตัวเลือก 4 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
+                        <input type="text" name="q${i}_c1" id="q${i}_c1" placeholder="ตัวเลือก 1 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
+                        <input type="text" name="q${i}_c2" id="q${i}_c2" placeholder="ตัวเลือก 2 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
+                        <input type="text" name="q${i}_c3" id="q${i}_c3" placeholder="ตัวเลือก 3 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
+                        <input type="text" name="q${i}_c4" id="q${i}_c4" placeholder="ตัวเลือก 4 ข้อ ${i}" class="p-2 rounded-lg border border-pink-100 text-xs focus:outline-pink-300">
                     </div>
-                    <input type="text" name="q${i}_correct" placeholder="เฉลยข้อ ${i} (ระบุตัวเลือกที่ถูกต้อง)..." class="w-full p-2.5 rounded-lg border border-green-200 bg-green-50 text-sm focus:outline-green-400">
+                    <input type="text" name="q${i}_correct" id="q${i}_correct" placeholder="เฉลยข้อ ${i} (ระบุตัวเลือกที่ถูกต้อง)..." class="w-full p-2.5 rounded-lg border border-green-200 bg-green-50 text-sm focus:outline-green-400">
                 </div>
             `;
         }
 
-        // อัปเดต SCRIPT_URL เป็นลิงก์ใหม่ที่คุณส่งมา
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby2Lg3OucZDaUnF83vAn-mZcSkPgFzYu6yRCgJyVVDQ1I4iauR-od8MmoRqktA5DtMK8w/exec';
         
         let uploadedImagesBase64 = []; 
@@ -277,13 +311,13 @@
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const files = Array.from(e.target.files);
             if (uploadedImagesBase64.length + files.length > MAX_FILES) {
-                alert(`สามารถอัปโหลดรูปภาพได้ไม่เกิน ${MAX_FILES} รูปภาพครับ`);
+                showWarning(`สามารถอัปโหลดรูปภาพได้ไม่เกิน ${MAX_FILES} รูปภาพครับ`);
                 this.value = "";
                 return;
             }
             files.forEach((file) => {
                 if (file.size > MAX_SIZE_MB * 1024 * 1024) {
-                    alert(`ไฟล์ "${file.name}" ใหญ่เกินไปครับ`);
+                    showWarning(`ไฟล์ "${file.name}" มีขนาดใหญ่เกิน 10MB ครับ`);
                     return;
                 }
                 const reader = new FileReader();
@@ -321,13 +355,95 @@
             document.getElementById('qa_inputs').classList.toggle('hidden', !show);
         }
 
-        document.getElementById('orderForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            if (!document.getElementById('consent_checkbox').checked) {
-                alert('กรุณายอมรับเงื่อนไขก่อนส่งข้อมูลครับ');
-                return;
+        function showWarning(msg) {
+            document.getElementById('warningMessage').innerText = msg;
+            const modal = document.getElementById('warningModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeWarning() {
+            const modal = document.getElementById('warningModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function showConfirm() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeConfirm() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function validateForm() {
+            const requiredFields = [
+                { id: 'card_type', label: 'แนวเว็บการ์ด' },
+                { id: 'customer_name', label: 'ชื่อเล่นของคุณ' },
+                { id: 'receiver_name', label: 'ชื่อคนพิเศษ' },
+                { id: 'color_tone', label: 'โทนสีที่ใช้' },
+                { id: 'music_url', label: 'ลิงก์เพลงประกอบ' }
+            ];
+
+            for (let field of requiredFields) {
+                const val = document.getElementById(field.id).value.trim();
+                if (!val) {
+                    showWarning(`กรุณาระบุ "${field.label}" ให้เรียบร้อยก่อนส่งข้อมูลครับ`);
+                    document.getElementById(field.id).focus();
+                    return false;
+                }
             }
 
+            const passcode = document.getElementById('passcode').value.trim();
+            if (passcode && (!/^\d{4}$/.test(passcode))) {
+                showWarning('รหัสผ่านปลดล็อกต้องเป็น "ตัวเลข 4 หลัก" เท่านั้นครับ');
+                document.getElementById('passcode').focus();
+                return false;
+            }
+
+            const musicUrl = document.getElementById('music_url').value.trim();
+            try {
+                new URL(musicUrl);
+            } catch (_) {
+                showWarning('ลิงก์เพลงประกอบไม่ถูกต้อง กรุณาตรวจสอบลิงก์อีกครั้งครับ');
+                document.getElementById('music_url').focus();
+                return false;
+            }
+
+            const isQA = document.querySelector('input[name="qa_choice"]:checked').value === 'yes';
+            if (isQA) {
+                const q1 = document.getElementById('q1_text').value.trim();
+                if (!q1) {
+                    showWarning('กรุณาระบุคำถามและเฉลย Q&A ให้ครบถ้วนครับ');
+                    return false;
+                }
+            }
+
+            if (!document.getElementById('consent_checkbox').checked) {
+                showWarning('กรุณาอ่านและกดยอมรับข้อตกลงความเป็นส่วนตัวก่อนส่งข้อมูลครับ');
+                return false;
+            }
+
+            return true;
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm()) {
+                showConfirm();
+            }
+        });
+
+        document.getElementById('finalConfirmBtn').addEventListener('click', async function() {
+            closeConfirm();
+            await performSubmit();
+        });
+
+        async function performSubmit() {
             const btn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const uploadingModal = document.getElementById('uploadingModal');
@@ -337,7 +453,7 @@
             uploadingModal.classList.remove('hidden');
             uploadingModal.classList.add('flex');
 
-            const formData = new FormData(this);
+            const formData = new FormData(document.getElementById('orderForm'));
             const data = Object.fromEntries(formData.entries());
             data.images = JSON.stringify(uploadedImagesBase64); 
 
@@ -360,10 +476,10 @@
             } catch (error) {
                 console.error('Error:', error);
                 uploadingModal.classList.add('hidden');
-                alert('เกิดข้อผิดพลาด กรุณาลองใหม่ครับ');
+                showWarning('เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาลองใหม่อีกครั้งครับ');
                 resetBtn();
             }
-        });
+        }
 
         function showSuccess() {
             document.getElementById('successModal').classList.remove('hidden');
